@@ -11,12 +11,18 @@ const BASE_URL = import.meta.env.DEV ? '/dev-api' : RAW_URL
 
 function validateConfig() {
   if (!RAW_URL) {
-    throw new Error('API not configured — set VITE_APPS_SCRIPT_URL in .env.local')
+    const detail = import.meta.env.DEV
+      ? 'Set VITE_APPS_SCRIPT_URL in .env.local'
+      : 'VITE_APPS_SCRIPT_URL was not set at build time — check the GitHub Actions secret and redeploy'
+    console.error(`[sheets] ${detail}`)
+    throw new Error('Something went wrong. Please try again later.')
   }
   try {
     new URL(RAW_URL)
   } catch {
-    throw new Error('VITE_APPS_SCRIPT_URL in .env.local is not a valid URL')
+    const detail = import.meta.env.DEV ? 'in .env.local' : 'in the GitHub Actions secret'
+    console.error(`[sheets] VITE_APPS_SCRIPT_URL ${detail} is not a valid URL: "${RAW_URL}"`)
+    throw new Error('Something went wrong. Please try again later.')
   }
 }
 
@@ -30,14 +36,18 @@ async function request(params = {}) {
   } catch (err) {
     if (axios.isAxiosError(err)) {
       if (err.response) {
-        throw new Error(`Server error ${err.response.status}: ${err.response.statusText}`)
+        console.error(`[sheets] Server error ${err.response.status}:`, err.response.data)
+        throw new Error('The server returned an error. Please try again.')
       }
       if (err.request) {
-        throw new Error('No response from server — check your network or the Apps Script URL.')
+        console.error('[sheets] No response received:', err.request)
+        throw new Error('Could not reach the server. Check your connection and try again.')
       }
-      throw new Error(`Request failed: ${err.message}`)
+      console.error('[sheets] Request setup error:', err.message)
+    } else {
+      console.error('[sheets] Unexpected error:', err)
     }
-    throw err
+    throw new Error('Something went wrong. Please try again later.')
   }
 }
 
