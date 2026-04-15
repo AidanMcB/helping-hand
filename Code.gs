@@ -16,8 +16,16 @@ function corsResponse(data) {
     .setMimeType(ContentService.MimeType.JSON)
 }
 
-// ── GET: return all posts as JSON ──────────────
-function doGet() {
+// ── GET: list posts, or handle create / claim / delete via ?action= ──
+function doGet(e) {
+  const params = (e && e.parameter) ? e.parameter : {}
+  const action = params.action
+
+  if (action === 'create') return handleCreate(params)
+  if (action === 'claim')  return handleClaim(params)
+  if (action === 'delete') return handleDelete(params)
+
+  // No action — return all posts
   const sheet = getSheet()
   const rows = sheet.getDataRange().getValues()
   if (rows.length <= 1) return corsResponse([])
@@ -28,18 +36,6 @@ function doGet() {
     return obj
   })
   return corsResponse(posts)
-}
-
-// ── POST: create / claim / delete ─────────────
-function doPost(e) {
-  const params = e.parameter
-  const action = params.action
-
-  if (action === 'create') return handleCreate(params)
-  if (action === 'claim')  return handleClaim(params)
-  if (action === 'delete') return handleDelete(params)
-
-  return corsResponse({ error: 'Unknown action' })
 }
 
 function sanitize(val) {

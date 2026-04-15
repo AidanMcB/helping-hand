@@ -61,7 +61,7 @@
             id="posterName"
             v-model="form.posterName"
             type="text"
-            placeholder="e.g. Aidan"
+            placeholder="name"
             required
             class="w-full px-3.5 py-2.5 rounded-xl border border-stone-200 bg-stone-50 text-stone-900 placeholder-stone-400 focus:outline-none focus:ring-2 focus:ring-emerald-400 focus:border-transparent transition text-sm"
           />
