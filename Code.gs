@@ -42,6 +42,11 @@ function doPost(e) {
   return corsResponse({ error: 'Unknown action' })
 }
 
+function sanitize(val) {
+  const s = (val || '').toString().trim()
+  return s.replace(/^[=+\-@\t\r]/, '')
+}
+
 function handleCreate(params) {
   const sheet = getSheet()
   const id = Utilities.getUuid()
@@ -49,11 +54,11 @@ function handleCreate(params) {
 
   const row = [
     id,
-    params.type        || '',
-    params.title       || '',
-    params.description || '',
-    params.posterName  || '',
-    params.contact     || '',
+    sanitize(params.type),
+    sanitize(params.title),
+    sanitize(params.description),
+    sanitize(params.posterName),
+    sanitize(params.contact),
     '',                       // claimerName (empty on create)
     now,
   ]
@@ -67,7 +72,7 @@ function handleCreate(params) {
 function handleClaim(params) {
   const sheet = getSheet()
   const id = params.id
-  const claimerName = params.claimerName || ''
+  const claimerName = sanitize(params.claimerName)
 
   const data = sheet.getDataRange().getValues()
   for (let i = 1; i < data.length; i++) {
