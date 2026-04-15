@@ -1,11 +1,11 @@
 <template>
   <!-- Backdrop -->
   <div
-    class="fixed inset-0 z-40 bg-black/40 backdrop-blur-sm flex items-end sm:items-center justify-center p-0 sm:p-4"
+    class="fixed inset-0 z-40 bg-black/40 backdrop-blur-sm flex items-center justify-center p-4"
     @click.self="$emit('close')"
   >
     <!-- Sheet / Modal -->
-    <div class="relative z-50 w-full sm:max-w-lg bg-white dark:bg-zinc-800 rounded-t-2xl sm:rounded-2xl shadow-xl overflow-hidden">
+    <div class="relative z-50 w-full max-w-lg bg-white dark:bg-zinc-800 rounded-2xl shadow-xl overflow-hidden flex flex-col max-h-[90dvh]">
       <!-- Header -->
       <div class="flex items-center justify-between px-5 pt-5 pb-3 border-b border-stone-200 dark:border-zinc-700">
         <h2 class="text-lg font-semibold text-stone-900 dark:text-zinc-50">New Post</h2>
@@ -20,7 +20,7 @@
       </div>
 
       <!-- Form -->
-      <form class="px-5 py-4 space-y-4" @submit.prevent="handleSubmit">
+      <form class="px-5 py-4 space-y-4 overflow-y-auto flex-1" @submit.prevent="handleSubmit">
         <!-- Type toggle -->
         <div>
           <label class="block text-sm font-medium text-stone-700 dark:text-zinc-300 mb-1.5">I want to…</label>

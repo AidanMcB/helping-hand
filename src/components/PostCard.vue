@@ -52,7 +52,7 @@
     </div>
 
     <!-- Claim form (inline) -->
-    <div v-else-if="showClaimForm" class="flex gap-2 mb-3">
+    <div v-else-if="showClaimForm" class="flex flex-wrap gap-2 mb-3">
       <input
         v-model="claimerName"
         type="text"
@@ -78,7 +78,7 @@
     </div>
 
     <!-- Action buttons -->
-    <div class="flex items-center gap-2">
+    <div class="flex flex-wrap items-center gap-2">
       <button
         v-if="!post.claimerName && !showClaimForm"
         :class="[
@@ -105,7 +105,7 @@
         </button>
       </div>
 
-      <div v-else class="flex items-center gap-2 text-sm">
+      <div v-else class="flex flex-wrap items-center gap-x-2 gap-y-1 text-sm w-full">
         <span class="text-stone-500 dark:text-zinc-400 text-xs">Done / remove?</span>
         <button
           :disabled="deleteLoading"

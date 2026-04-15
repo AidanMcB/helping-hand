@@ -1,5 +1,5 @@
 <template>
-  <div class="min-h-screen bg-stone-100 dark:bg-zinc-950 transition-colors duration-200">
+  <div class="min-h-screen bg-stone-100 dark:bg-zinc-950 transition-colors duration-200 overflow-x-hidden">
     <!-- Header -->
     <header class="sticky top-0 z-30 bg-white/90 dark:bg-zinc-900/90 backdrop-blur border-b border-stone-200 dark:border-zinc-700">
       <div class="max-w-2xl mx-auto px-4 h-14 flex items-center justify-between">
@@ -37,8 +37,8 @@
     </header>
 
     <!-- Filter tabs -->
-    <div class="max-w-2xl mx-auto px-4 pt-5 pb-2">
-      <div class="flex gap-1 bg-stone-200 dark:bg-zinc-800 p-1 rounded-xl w-fit">
+    <div class="max-w-2xl mx-auto px-4 pt-5 pb-2 overflow-x-auto">
+      <div class="flex gap-1 bg-stone-200 dark:bg-zinc-800 p-1 rounded-xl w-fit min-w-0">
         <button
           v-for="tab in tabs"
           :key="tab.value"
