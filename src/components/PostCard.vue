@@ -3,8 +3,8 @@
     :class="[
       'relative rounded-2xl border p-4 transition-all',
       post.type === 'offer'
-        ? 'bg-white border-emerald-100'
-        : 'bg-white border-amber-100',
+        ? 'bg-white dark:bg-zinc-800 border-emerald-200 dark:border-emerald-900/60'
+        : 'bg-white dark:bg-zinc-800 border-amber-200 dark:border-amber-900/60',
     ]"
   >
     <!-- Type badge -->
@@ -12,8 +12,8 @@
       :class="[
         'inline-flex items-center gap-1 text-xs font-semibold px-2.5 py-0.5 rounded-full mb-3',
         post.type === 'offer'
-          ? 'bg-emerald-50 text-emerald-700'
-          : 'bg-amber-50 text-amber-700',
+          ? 'bg-emerald-100 dark:bg-emerald-900/40 text-emerald-800 dark:text-emerald-300'
+          : 'bg-amber-100 dark:bg-amber-900/40 text-amber-800 dark:text-amber-300',
       ]"
     >
       <span>{{ post.type === 'offer' ? '🤲' : '🙏' }}</span>
@@ -21,14 +21,14 @@
     </span>
 
     <!-- Title -->
-    <h3 class="font-semibold text-stone-900 text-base leading-snug mb-1">{{ post.title }}</h3>
+    <h3 class="font-semibold text-stone-900 dark:text-zinc-50 text-base leading-snug mb-1">{{ post.title }}</h3>
 
     <!-- Description -->
-    <p v-if="post.description" class="text-sm text-stone-500 leading-relaxed mb-3">{{ post.description }}</p>
+    <p v-if="post.description" class="text-sm text-stone-600 dark:text-zinc-300 leading-relaxed mb-3">{{ post.description }}</p>
 
     <!-- Meta row -->
-    <div class="flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-stone-400 mb-3">
-      <span class="font-medium text-stone-600">{{ post.posterName }}</span>
+    <div class="flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-stone-500 dark:text-zinc-400 mb-3">
+      <span class="font-medium text-stone-700 dark:text-zinc-300">{{ post.posterName }}</span>
       <span v-if="post.contact" class="flex items-center gap-1">
         <svg class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
           <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 002.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.38a12.035 12.035 0 01-7.143-7.143c-.162-.441.004-.928.38-1.21l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 00-1.091-.852H4.5A2.25 2.25 0 002.25 4.5v2.25z" />
@@ -41,14 +41,14 @@
     <!-- Claimer banner -->
     <div
       v-if="post.claimerName"
-      class="flex items-center gap-2 rounded-xl bg-stone-50 border border-stone-100 px-3 py-2 mb-3 text-sm"
+      class="flex items-center gap-2 rounded-xl bg-stone-100 dark:bg-zinc-700 border border-stone-200 dark:border-zinc-600 px-3 py-2 mb-3 text-sm"
     >
-      <span class="text-stone-400">
+      <span class="text-stone-400 dark:text-zinc-400">
         <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
           <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z" />
         </svg>
       </span>
-      <span class="text-stone-600"><span class="font-medium">{{ post.claimerName }}</span> is on it</span>
+      <span class="text-stone-600 dark:text-zinc-300"><span class="font-medium">{{ post.claimerName }}</span> is on it</span>
     </div>
 
     <!-- Claim form (inline) -->
@@ -58,7 +58,7 @@
         type="text"
         placeholder="Your name"
         autofocus
-        class="flex-1 min-w-0 px-3 py-2 rounded-xl border border-stone-200 bg-stone-50 text-sm placeholder-stone-400 focus:outline-none focus:ring-2 focus:ring-emerald-400 focus:border-transparent transition"
+        class="flex-1 min-w-0 px-3 py-2 rounded-xl border border-stone-200 dark:border-zinc-600 bg-stone-50 dark:bg-zinc-700 text-stone-900 dark:text-zinc-50 text-sm placeholder-stone-400 dark:placeholder-zinc-400 focus:outline-none focus:ring-2 focus:ring-emerald-400 dark:focus:ring-emerald-500 focus:border-transparent transition"
         @keydown.enter="handleClaim"
         @keydown.escape="showClaimForm = false"
       />
@@ -84,8 +84,8 @@
         :class="[
           'flex-1 py-2 rounded-xl text-sm font-medium transition-all active:scale-[0.98]',
           post.type === 'offer'
-            ? 'bg-emerald-50 text-emerald-700 hover:bg-emerald-100'
-            : 'bg-amber-50 text-amber-700 hover:bg-amber-100',
+            ? 'bg-emerald-100 dark:bg-emerald-900/40 text-emerald-800 dark:text-emerald-300 hover:bg-emerald-200 dark:hover:bg-emerald-900/60'
+            : 'bg-amber-100 dark:bg-amber-900/40 text-amber-800 dark:text-amber-300 hover:bg-amber-200 dark:hover:bg-amber-900/60',
         ]"
         @click="showClaimForm = true"
       >
@@ -95,7 +95,7 @@
       <!-- Delete with confirm -->
       <div v-if="!showDeleteConfirm" class="flex items-center">
         <button
-          class="p-2 text-stone-300 hover:text-rose-400 transition-colors rounded-xl hover:bg-rose-50"
+          class="p-2 text-stone-400 dark:text-zinc-500 hover:text-rose-500 dark:hover:text-rose-400 transition-colors rounded-xl hover:bg-rose-50 dark:hover:bg-rose-900/30"
           title="Mark as done / remove"
           @click="showDeleteConfirm = true"
         >
@@ -106,7 +106,7 @@
       </div>
 
       <div v-else class="flex items-center gap-2 text-sm">
-        <span class="text-stone-500 text-xs">Done / remove?</span>
+        <span class="text-stone-500 dark:text-zinc-400 text-xs">Done / remove?</span>
         <button
           :disabled="deleteLoading"
           class="px-3 py-1.5 bg-rose-500 text-white rounded-xl text-xs font-medium hover:bg-rose-600 transition disabled:opacity-50"
@@ -115,7 +115,7 @@
           {{ deleteLoading ? '…' : 'Yes, remove' }}
         </button>
         <button
-          class="px-3 py-1.5 text-stone-400 hover:text-stone-600 transition text-xs"
+          class="px-3 py-1.5 text-stone-400 dark:text-zinc-500 hover:text-stone-600 dark:hover:text-zinc-300 transition text-xs"
           @click="showDeleteConfirm = false"
         >
           Cancel
